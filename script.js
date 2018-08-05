@@ -36,8 +36,17 @@ function drawMatrix(matrix, offset) {
     });
 };
 
-var arena = createMatrix(12, 20);
-console.log(arena), console.table(arena);
+function merge(arena, player) {
+    player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                arena[y + player.pos.y][x + player.pos.x] = value;
+            }
+        });
+    });
+};
+
+const arena = createMatrix(12, 20);
 
 function playerDrop() {
     player.pos.y++;
@@ -75,7 +84,7 @@ document.addEventListener('keydown', event => {
     else if (event.keyCode === 40) {
         playerDrop();
     }
-})
+});
 
 update();
 
