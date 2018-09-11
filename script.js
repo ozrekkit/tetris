@@ -35,6 +35,7 @@ function draw() {
     context.fillStyle = 'black';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
+    drawMatrix(arena, {x: 0, y: 0});
     drawMatrix(player.matrix, player.pos);
 }
 
@@ -67,6 +68,7 @@ function playerDrop() {
     if (collide(arena, player)) {
         player.pos.y--;
         merge(arena, player);
+        console.table(arena);
         player.pos.y = 0;
     }
     dropCounter = 0;
