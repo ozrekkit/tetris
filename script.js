@@ -59,7 +59,14 @@ function merge(arena, player) {
             }
         });
     });
-};
+}
+
+function playerMove(dir) {
+    player.pos.x += dir;
+    if (collide(arena, player)) {
+        player.pos.x -= dir;
+    }
+}
 
 const arena = createMatrix(12, 20);
 
@@ -68,7 +75,6 @@ function playerDrop() {
     if (collide(arena, player)) {
         player.pos.y--;
         merge(arena, player);
-        console.table(arena);
         player.pos.y = 0;
     }
     dropCounter = 0;
@@ -84,23 +90,23 @@ function update(time = 0) {
     dropCounter += deltaTime;
     if (dropCounter > dropInterval) {
        playerDrop();
-    };
+    }
     draw();
     requestAnimationFrame(update);
-};
+}
 
-var player = {
-    pos: {x: 5, y: 5},
+const player = {
+    pos: {x: 5, y: 0},
     matrix: matrix,
 };
 
 document.addEventListener('keydown', event => {
     console.log(event);
     if (event.keyCode === 37) {
-        player.pos.x--;
+        playerMove(-1);
     }
     else if (event.keyCode === 39) {
-        player.pos.x++;
+        playerMove(+1);
     }
     else if (event.keyCode === 40) {
         playerDrop();
